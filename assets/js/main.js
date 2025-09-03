@@ -93,3 +93,77 @@ sr.reveal('.favorite__card:nth-child(6) img', {delay:1000})
 /* sr.reveal('.favorite__card img', {interval:100, rotate:{z:15}, distance:0}) */
 
 sr.reveal('.favorite__container img', {scale:1})
+
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const cartQuantity = document.querySelector('.nav__cart span'); // 选择显示数量的元素
+    const addToCartButtons = document.querySelectorAll('.favorite__button'); // 选择所有的添加到购物车按钮
+    const cart = {}; // 购物车对象，用来存储产品信息和数量
+
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            let currentQuantity = parseInt(cartQuantity.textContent) || 0; // 获取当前数量，如果未定义则默认为0
+            cartQuantity.textContent = currentQuantity + 1; // 数量加1
+
+            // 获取产品信息
+            const card = button.closest('.favorite__card');
+            const productId = card.querySelector('.favorite__img').src.split('/').pop().split('.')[0]; // 使用图片名作为产品ID
+            const productName = card.querySelector('.favorite__title').textContent;
+            const productDescription = card.querySelector('.favorite__subtitle').textContent;
+            const productPrice = card.querySelector('.favorite__price').textContent;
+
+            // 更新购物车对象
+            if (cart[productId]) {
+                cart[productId].quantity += 1; // 如果产品已存在，增加数量
+            } else {
+                cart[productId] = {
+                    name: productName,
+                    description: productDescription,
+                    price: productPrice,
+                    quantity: 1 // 新增产品，数量设置为1
+                };
+            }
+
+            console.log(cart); // 打印当前的购物车状态，用于调试
+        });
+    });
+});
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const cartModal = document.getElementById('cartModal');
+    const cartItems = document.getElementById('cartItems');
+    const closeBtn = document.querySelector('.close');
+    const cartIcon = document.querySelector('.nav__cart');
+
+    // 显示购物车模态窗口
+    cartIcon.addEventListener('click', function () {
+        cartItems.innerHTML = ''; // 清空当前列表
+        for (const id in cart) {
+            const item = cart[id];
+            const li = document.createElement('li');
+            li.textContent = `${item.name} - Quantity: ${item.quantity}`;
+            cartItems.appendChild(li);
+        }
+        cartModal.style.display = 'block';
+    });
+
+    // 关闭模态窗口
+    closeBtn.addEventListener('click', function() {
+        cartModal.style.display = 'none';
+    });
+
+    // 点击窗口外部时关闭模态窗口
+    window.onclick = function(event) {
+        if (event.target == cartModal) {
+            cartModal.style.display = 'none';
+        }
+    };
+});
+

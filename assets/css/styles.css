@@ -152,6 +152,37 @@ img {
   align-items: center;
 }
 
+.nav__cart{
+  display: flex;
+  flex-direction: row;
+  align-items: end;
+  justify-content: flex-start;
+
+}
+.nav__img-cart{
+  position: relative;
+  width: 38px;
+}
+
+.nav__img-cart:hover{
+  cursor: pointer;
+}
+
+.nav__cart span{
+  position: relative;
+  background-color: var(--first-color-alt);
+  left: -10px;
+  color: aliceblue;
+  width: 16px;
+  height: 16px;
+  font-size: small;
+  font-family: var(--font-regular);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .nav__img-logo{
   width: 30px;
   margin-right: 1rem;
@@ -166,6 +197,10 @@ img {
   font-size: 1.5rem;
   color: var(--title-color);
   cursor: pointer;
+}
+
+.cart{
+   
 }
 
 /* Navigation for mobile devices */
@@ -355,6 +390,7 @@ img {
 }
 
 .button:hover{
+  cursor: pointer;
   background-color: var(--first-color-alt);
 }
 
@@ -918,3 +954,4 @@ img {
     right: 3rem;
   }
 }
+
